@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/collindever/Piezas.svg?branch=master)](https://travis-ci.com/collindever/Piezas)
+
 # Piezas
 
 ## Associated Enumerated Types
