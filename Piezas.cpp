@@ -66,9 +66,15 @@ Piece Piezas::dropPiece(int column)
         if(board[i][column] == Blank) {
             board[i][column] = turn;
             full = false;
+            break;
         }
     }
     if (full) {
+        if (turn == X) {
+            turn = O;
+        } else {
+            turn = X;
+        }
         return Blank;
     }
     if (turn == X) {
