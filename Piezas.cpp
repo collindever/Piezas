@@ -1,5 +1,7 @@
 #include "Piezas.h"
 #include <vector>
+#include<ostream>
+#include<iostream>
 /** CLASS Piezas
  * Class for representing a Piezas vertical board, which is roughly based
  * on the game "Connect Four" where pieces are placed in a column and 
@@ -66,9 +68,15 @@ Piece Piezas::dropPiece(int column)
         if(board[i][column] == Blank) {
             board[i][column] = turn;
             full = false;
+            break;
         }
     }
     if (full) {
+        if (turn == X) {
+            turn = O;
+        } else {
+            turn = X;
+        }
         return Blank;
     }
     if (turn == X) {
