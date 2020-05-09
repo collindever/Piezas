@@ -36,3 +36,52 @@ TEST(PiezasTest, resetFunctionality) {
 	ASSERT_EQ(TP.pieceAt(0,0), Blank);
 	ASSERT_EQ(TP.gameState(), Invalid);
 }
+
+TEST(PiezasTest, changePlayer) {
+	Piezas TP;
+	TP.dropPiece(0);
+	ASSERT_EQ(TP.pieceAt(0,0), X);
+	TP.dropPiece(0);
+	ASSERT_EQ(TP.pieceAt(1,0), O);
+}
+
+TEST(PiezasTest, OutOfBoundsColumn) {
+	Piezas TP;
+	ASSERT_EQ(TP.dropPiece(5), Invalid);
+	ASSERT_EQ(TP.dropPiece(0), O);
+	ASSERT_EQ(TP.pieceAt(0,0), O);
+}
+
+TEST(PiezasTest, TieHorizontalGame) {
+	Piezas TP;
+	TP.dropPiece(0);
+	TP.dropPiece(0);
+	TP.dropPiece(1);
+	TP.dropPiece(1);
+	TP.dropPiece(2);
+	TP.dropPiece(2);
+	TP.dropPiece(3);
+	TP.dropPiece(3);
+	TP.dropPiece(0);
+	TP.dropPiece(1);
+	TP.dropPiece(2);
+	TP.dropPiece(3);
+	ASSERT_EQ(TP.gameState(), Blank);
+}
+
+TEST(PiezasTest, TieVerticalGame) {
+	Piezas TP;
+	TP.dropPiece(0);
+	TP.dropPiece(1);
+	TP.dropPiece(2);
+	TP.dropPiece(3);
+	TP.dropPiece(0);
+	TP.dropPiece(1);
+	TP.dropPiece(2);
+	TP.dropPiece(3);
+	TP.dropPiece(0);
+	TP.dropPiece(1);
+	TP.dropPiece(2);
+	TP.dropPiece(3);
+	ASSERT_EQ(TP.gameState(), Blank);
+}
