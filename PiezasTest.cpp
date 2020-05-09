@@ -44,3 +44,11 @@ TEST(PiezasTest, changePlayer) {
 	TP.dropPiece(0);
 	ASSERT_EQ(TP.pieceAt(0,1), O);
 }
+
+TEST(PiezasTest, OutOfBoundsColumn) {
+	Piezas TP;
+	Piece result = TP.dropPiece(5);
+	ASSERT_EQ(result, Invalid);
+	TP.dropPiece(0);
+	ASSERT_EQ(TP.pieceAt(0,1), O);
+}
