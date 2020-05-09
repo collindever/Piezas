@@ -36,3 +36,11 @@ TEST(PiezasTest, resetFunctionality) {
 	ASSERT_EQ(TP.pieceAt(0,0), Blank);
 	ASSERT_EQ(TP.gameState(), Invalid);
 }
+
+TEST(PiezasTest, changePlayer) {
+	Piezas TP;
+	TP.dropPiece(0);
+	ASSERT_EQ(TP.pieceAt(0,0), X);
+	TP.dropPiece(0);
+	ASSERT_EQ(TP.pieceAt(0,1), O);
+}
