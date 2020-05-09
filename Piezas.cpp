@@ -20,16 +20,29 @@
  * Constructor sets an empty board (default 3 rows, 4 columns) and 
  * specifies it is X's turn first
 **/
-Piezas::Piezas()
-{
+Piezas::Piezas() {
+    for(int i = 0; i < BOARD_ROWS; i++) {
+        std::vector<Piece> row;
+        for (int j = 0; j < BOARD_COLS; j++) {
+            row.push_back(Blank);
+        }
+        board.push_back(row);
+        turn = X;
+    }
 }
 
 /**
  * Resets each board location to the Blank Piece value, with a board of the
  * same size as previously specified
 **/
-void Piezas::reset()
-{
+void Piezas::reset() {
+    for(int i = 0; i < BOARD_ROWS; i++) {
+        std::vector<Piece> row;
+        for (int j = 0; j < BOARD_COLS; j++) {
+            row.push_back(Blank);
+        }
+        board.push_back(row);
+    }
 }
 
 /**
@@ -42,7 +55,31 @@ void Piezas::reset()
 **/ 
 Piece Piezas::dropPiece(int column)
 {
-    return Blank;
+    if(column > BOARD_COLS - 1) {
+        if( turn == X) {
+            turn = O;
+        } else {
+            turn = X;
+        }
+        return Invalid;
+    }
+    bool full = true;
+    for(int i= 0; i < BOARD_ROWS; i++) {
+        if(board[i][column] == Blank) {
+            board[i][column] = turn;
+            full = false;
+        }
+    }
+    if (full) {
+        return Blank;
+    }
+    if (turn == X) {
+        turn = O;
+        return X;
+    } else {
+        turn = X;
+        return O;
+    }
 }
 
 /**
@@ -51,7 +88,11 @@ Piece Piezas::dropPiece(int column)
 **/
 Piece Piezas::pieceAt(int row, int column)
 {
-    return Blank;
+    if(row > BOARD_ROWS - 1 || column > BOARD_COLS - 1) {
+        return Invalid;
+    } else {
+        return board[row][column];
+    }
 }
 
 /**
@@ -65,5 +106,66 @@ Piece Piezas::pieceAt(int row, int column)
 **/
 Piece Piezas::gameState()
 {
-    return Blank;
+    int greatestXHorizontal = 0;
+    int greatestOHorizontal = 0;
+
+    int greatestXVertical = 0;
+    int greatestOVertical = 0;
+
+    for (int i = 0; i < BOARD_ROWS; i++) {
+        int currentLength = 0;
+        Piece currentPiece = Blank;
+        for( int j = 0; j < BOARD_COLS; j++) {
+            if(board[i][j] == Blank) {
+                return Invalid;
+            } else {
+                if(board[i][j] == currentPiece) {
+                    currentLength++;
+                } else {
+                    if(currentPiece == X && currentLength > greatestXHorizontal) {
+                        greatestXHorizontal = currentLength;
+                    } else if(currentPiece == O && currentLength > greatestOHorizontal) {
+                        greatestOHorizontal = currentLength;
+                    }
+                    currentLength = 1;
+                    currentPiece = board[i][j];
+                }
+            }
+
+        }
+    }
+
+    for (int i = 0; i < BOARD_COLS; i++) {
+        int currentLength = 0;
+        Piece currentPiece = Blank;
+        for( int j = 0; j < BOARD_ROWS; j++) {
+            if(board[j][i] == Blank) {
+                return Invalid;
+            } else {
+                if(board[j][i] == currentPiece) {
+                    currentLength++;
+                } else {
+                    if(currentPiece == X && currentLength > greatestXVertical) {
+                        greatestXVertical = currentLength;
+                    } else if(currentPiece == O && currentLength > greatestOVertical) {
+                        greatestOVertical = currentLength;
+                    }
+                    currentLength = 1;
+                    currentPiece = board[j][i];
+                }
+            }
+
+        }
+    }
+
+    int xMAX = greatestXHorizontal > greatestXVertical ? greatestXHorizontal : greatestXVertical;
+    int oMAX = greatestOHorizontal > greatestOVertical ? greatestOHorizontal : greatestOVertical;
+
+    if (xMAX == oMAX) {
+        return Blank;
+    } else if (xMAX > oMAX) {
+        return X;
+    } else {
+        return O;
+    }
 }
