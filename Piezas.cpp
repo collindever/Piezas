@@ -37,11 +37,9 @@ Piezas::Piezas() {
 **/
 void Piezas::reset() {
     for(int i = 0; i < BOARD_ROWS; i++) {
-        std::vector<Piece> row;
         for (int j = 0; j < BOARD_COLS; j++) {
-            row.push_back(Blank);
+            board[i][j] = Blank;
         }
-        board.push_back(row);
     }
 }
 
