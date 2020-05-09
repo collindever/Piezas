@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.com/collindever/Piezas.svg?branch=master)](https://travis-ci.com/collindever/Piezas) [![Coverage Status](https://coveralls.io/repos/github/collindever/Piezas/badge.svg?branch=master)](https://coveralls.io/github/collindever/Piezas?branch=master)
+[![Build Status](https://travis-ci.com/collindever/Piezas.svg?branch=master)](https://travis-ci.com/collindever/Piezas)
+[![Coverage Status](https://coveralls.io/repos/github/collindever/Piezas/badge.svg?branch=master)](https://coveralls.io/github/collindever/Piezas?branch=master)
 
 # Piezas
 
